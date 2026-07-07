@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Token</string>
+    <string name="api_key_hint">请输入 API Key</string>
+    <string name="save">保存</string>
+    <string name="query_balance">查询余额</string>
+    <string name="refresh">刷新</string>
+    <string name="how_to_get_key">如何获取 API Key?</string>
+    <string name="deepseek_platform_url">https://platform.deepseek.com/api_keys</string>
+    <string name="total_balance">总额</string>
+    <string name="used_balance">已用</string>
+    <string name="remaining_balance">剩余</string>
+    <string name="no_api_key">请先设置 API Key</string>
+    <string name="loading">查询中…</string>
+    <string name="error_network">网络连接失败，请检查网络</string>
+    <string name="error_auth">API Key 无效，请检查</string>
+    <string name="error_unknown">查询失败，请稍后重试</string>
+    <string name="api_key_saved">API Key 已保存</string>
+    <string name="currency_unit">¥</string>
+    <string name="widget_description">在桌面显示 DeepSeek 账户余额，一键查看</string>
+</resources>

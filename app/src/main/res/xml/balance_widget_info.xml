@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  DeepSeek Balance 桌面卡片配置
+
+  适配 vivo OriginOS 卡片原子组件：
+  - 长按桌面空白处 → 原子组件 / 卡片 → 搜索本应用
+  - 支持 4×1、4×2、宽版 等多种尺寸自适应
+ -->
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="240dp"
+    android:minHeight="90dp"
+    android:resizeMode="horizontal|vertical"
+    android:minResizeWidth="180dp"
+    android:minResizeHeight="80dp"
+    android:updatePeriodMillis="1800000"
+    android:initialLayout="@layout/widget_balance"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_description"
+    android:previewImage="@mipmap/ic_launcher" />

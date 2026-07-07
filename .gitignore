@@ -1,0 +1,59 @@
+### IntelliJ IDEA ###
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+.kotlin
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store
+
+### Android ###
+.gradle/
+build/
+app/build/
+local.properties
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+*.log
+gen/
+proguard/
+*.hprof
+
+# Gradle Wrapper (keep properties, ignore jar and scripts)
+!gradle/wrapper/gradle-wrapper.jar
+!gradlew
+!gradlew.bat
+
+# Android Studio
+.idea/caches/
+.idea/libraries/
+.idea/shelf/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/

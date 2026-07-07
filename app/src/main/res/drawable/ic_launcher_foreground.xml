@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- ── 代币/硬币外圈 ── -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:pathData="M54,32 A22,22 0 1,1 53.99,32 Z" />
+
+    <!-- ── 代币内圈虚线（芯片纹理） ── -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:pathData="M54,38 A16,16 0 1,1 53.99,38 Z" />
+
+    <!-- ── T 字母 ── -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M39,44 L69,44 L69,49 L56.5,49 L56.5,66 L51.5,66 L51.5,49 L39,49 Z" />
+
+    <!-- ── 底部小圆点（余额指示器） ── -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M47,70 A2,2 0 1,1 46.99,70 Z" />
+    <path
+        android:fillColor="#99FFFFFF"
+        android:pathData="M52,70 A2,2 0 1,1 51.99,70 Z" />
+    <path
+        android:fillColor="#4DFFFFFF"
+        android:pathData="M57,70 A2,2 0 1,1 56.99,70 Z" />
+
+</vector>
