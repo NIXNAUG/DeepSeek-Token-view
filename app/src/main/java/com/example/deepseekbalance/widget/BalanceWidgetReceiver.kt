@@ -10,8 +10,6 @@ import android.widget.RemoteViews
 import com.example.deepseekbalance.MainActivity
 import com.example.deepseekbalance.R
 import com.example.deepseekbalance.data.WidgetDataStore
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 /**
  * 桌面小组件广播接收器 — 传统 RemoteViews 方案
@@ -66,11 +64,6 @@ class BalanceWidgetReceiver : AppWidgetProvider() {
 
             if (balance != null) {
                 views.setTextViewText(R.id.widget_balance, "¥${balance.totalBalance}")
-                views.setTextViewText(R.id.widget_used, "¥${balance.usedBalance}")
-                views.setTextViewText(R.id.widget_remaining, "¥${balance.remainingBalance}")
-
-                val percent = calculateUsagePercent(balance.totalBalance, balance.usedBalance)
-                views.setTextViewText(R.id.widget_usage, "已使用 $percent%")
 
                 if (updatedAt > 0) {
                     views.setTextViewText(R.id.widget_time, formatRelativeTime(updatedAt))
@@ -78,29 +71,11 @@ class BalanceWidgetReceiver : AppWidgetProvider() {
                 views.setTextViewText(R.id.widget_hint, "点击刷新")
             } else {
                 views.setTextViewText(R.id.widget_balance, "¥ —.—")
-                views.setTextViewText(R.id.widget_used, "¥0.00")
-                views.setTextViewText(R.id.widget_remaining, "¥0.00")
-                views.setTextViewText(R.id.widget_usage, "")
                 views.setTextViewText(R.id.widget_time, "")
                 views.setTextViewText(R.id.widget_hint, "打开 App 设置 API Key")
             }
 
             appWidgetManager.updateAppWidget(widgetId, views)
-        }
-
-        private fun calculateUsagePercent(total: String, used: String): Int {
-            return try {
-                val t = BigDecimal(total)
-                val u = BigDecimal(used)
-                if (t.compareTo(BigDecimal.ZERO) <= 0) return 0
-                u.divide(t, 2, RoundingMode.HALF_UP)
-                    .multiply(BigDecimal(100))
-                    .setScale(0, RoundingMode.HALF_UP)
-                    .toInt()
-                    .coerceIn(0, 100)
-            } catch (_: Exception) {
-                0
-            }
         }
 
         private fun formatRelativeTime(timestamp: Long): String {

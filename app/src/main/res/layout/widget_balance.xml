@@ -57,72 +57,7 @@
         android:textSize="26sp"
         android:textStyle="bold" />
 
-    <Space android:layout_height="6dp" android:layout_width="match_parent" />
-
-    <!-- 已用 / 剩余 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已用"
-                android:textColor="#999999"
-                android:textSize="9sp" />
-            <TextView
-                android:id="@+id/widget_used"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥0.00"
-                android:textColor="#BA1A1A"
-                android:textSize="13sp"
-                android:fontFamily="sans-serif-medium" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="end">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="剩余"
-                android:textColor="#999999"
-                android:textSize="9sp" />
-            <TextView
-                android:id="@+id/widget_remaining"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="¥0.00"
-                android:textColor="#4D6BFE"
-                android:textSize="13sp"
-                android:fontFamily="sans-serif-medium" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <Space android:layout_height="4dp" android:layout_width="match_parent" />
-
-    <!-- 使用率 -->
-    <TextView
-        android:id="@+id/widget_usage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#999999"
-        android:textSize="10sp" />
-
-    <Space android:layout_height="4dp" android:layout_width="match_parent" />
+    <Space android:layout_height="8dp" android:layout_width="match_parent" />
 
     <!-- 底部提示 -->
     <TextView

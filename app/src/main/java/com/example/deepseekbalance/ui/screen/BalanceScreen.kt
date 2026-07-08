@@ -25,8 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
@@ -44,8 +42,6 @@ import com.example.deepseekbalance.network.DeepSeekApi
 import com.example.deepseekbalance.widget.BalanceWidgetReceiver
 import kotlinx.coroutines.launch
 import java.io.IOException
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 // ═══════════════════════════════════════════
 // 主界面
@@ -210,7 +206,7 @@ fun BalanceScreen() {
                             val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                             val clip = ClipData.newPlainText(
                                 "balance",
-                                "总额: ¥${balanceState!!.totalBalance}  已用: ¥${balanceState!!.usedBalance}  剩余: ¥${balanceState!!.remainingBalance}"
+                                "余额: ¥${balanceState!!.totalBalance}"
                             )
                             clipboard.setPrimaryClip(clip)
                         }
@@ -616,17 +612,6 @@ private fun BalanceCard(
     balance: BalanceUiState,
     onCopy: () -> Unit,
 ) {
-    val usagePercent = remember(balance.totalBalance, balance.usedBalance) {
-        calculateUsagePercent(balance.totalBalance, balance.usedBalance)
-    }
-
-    // 使用进度比例动画
-    val animatedProgress by animateFloatAsState(
-        targetValue = usagePercent / 100f,
-        animationSpec = tween(durationMillis = 800, easing = FastOutSlowInEasing),
-        label = "progress"
-    )
-
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.extraLarge,
@@ -685,84 +670,6 @@ private fun BalanceCard(
             )
 
             Spacer(modifier = Modifier.height(20.dp))
-
-            // ═══ 使用进度条 ═══
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(
-                        text = "已使用",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
-                    )
-                    Text(
-                        text = "${usagePercent}%",
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.primary,
-                    )
-                }
-                Spacer(modifier = Modifier.height(6.dp))
-                // 自定义进度条
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(8.dp)
-                        .clip(RoundedCornerShape(4.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f))
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth(animatedProgress)
-                            .fillMaxHeight()
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(
-                                Brush.horizontalGradient(
-                                    colors = if (usagePercent > 80) {
-                                        listOf(
-                                            MaterialTheme.colorScheme.error.copy(alpha = 0.7f),
-                                            MaterialTheme.colorScheme.error
-                                        )
-                                    } else {
-                                        listOf(
-                                            MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
-                                            MaterialTheme.colorScheme.primary
-                                        )
-                                    }
-                                )
-                            )
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // ═══ 已用 / 剩余 双卡片 ═══
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                MiniBalanceCard(
-                    icon = Icons.Outlined.TrendingUp,
-                    label = "已用",
-                    amount = balance.usedBalance,
-                    containerColor = MaterialTheme.colorScheme.errorContainer.copy(alpha = 0.5f),
-                    contentColor = MaterialTheme.colorScheme.onErrorContainer,
-                    modifier = Modifier.weight(1f),
-                )
-                MiniBalanceCard(
-                    icon = Icons.Outlined.Savings,
-                    label = "剩余",
-                    amount = balance.remainingBalance,
-                    containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    modifier = Modifier.weight(1f),
-                )
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
 
             // ═══ 已获得(赠送)额度 ═══
             if (balance.grantedBalance.isNotEmpty() && balance.grantedBalance != "0.00") {
@@ -831,46 +738,6 @@ private fun RechargeButton() {
             text = "充值",
             style = MaterialTheme.typography.labelLarge,
         )
-    }
-}
-
-@Composable
-private fun MiniBalanceCard(
-    icon: ImageVector,
-    label: String,
-    amount: String,
-    containerColor: Color,
-    contentColor: Color,
-    modifier: Modifier = Modifier,
-) {
-    Surface(
-        modifier = modifier,
-        shape = MaterialTheme.shapes.large,
-        color = containerColor,
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp),
-        ) {
-            Icon(
-                icon,
-                contentDescription = null,
-                tint = contentColor.copy(alpha = 0.7f),
-                modifier = Modifier.size(20.dp)
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelSmall,
-                color = contentColor.copy(alpha = 0.6f),
-            )
-            Spacer(modifier = Modifier.height(2.dp))
-            Text(
-                text = "¥$amount",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = contentColor,
-            )
-        }
     }
 }
 
@@ -1061,20 +928,3 @@ private fun maskApiKey(key: String): String {
     return "${key.take(4)}${"*".repeat(maxOf(0, key.length - 8))}${key.takeLast(4)}"
 }
 
-/**
- * 计算使用百分比
- */
-private fun calculateUsagePercent(total: String, used: String): Int {
-    return try {
-        val t = BigDecimal(total)
-        val u = BigDecimal(used)
-        if (t.compareTo(BigDecimal.ZERO) <= 0) return 0
-        u.divide(t, 2, RoundingMode.HALF_UP)
-            .multiply(BigDecimal(100))
-            .setScale(0, RoundingMode.HALF_UP)
-            .toInt()
-            .coerceIn(0, 100)
-    } catch (_: Exception) {
-        0
-    }
-}
